@@ -1,6 +1,7 @@
 import requests
 from requests.auth import HTTPBasicAuth
-from settings import ORGANIZZE_API_URL
+
+API_URL = "https://api.organizze.com.br/rest/v2"
 
 
 class API:
@@ -15,13 +16,13 @@ class API:
                                     'Content-Type': 'application/json; charset=utf-8'})
 
     def get(self, comando: str, params: dict = None):
-        return self.sessao.get(f'{ORGANIZZE_API_URL}{comando}', params=params).json()
+        return self.sessao.get(f'{API_URL}{comando}', params=params).json()
 
     def post(self, comando: str, params: dict = None):
-        self.sessao.post(f'{ORGANIZZE_API_URL}{comando}', params=params)
+        self.sessao.post(f'{API_URL}{comando}', params=params)
 
     def put(self, comando: str, params: dict = None):
-        self.sessao.put(f'{ORGANIZZE_API_URL}{comando}', params=params)
+        self.sessao.put(f'{API_URL}{comando}', params=params)
 
     def delete(self, comando: str, params: dict = None):
-        self.sessao.delete(f'{ORGANIZZE_API_URL}{comando}', params=params)
+        self.sessao.delete(f'{API_URL}{comando}', params=params)
