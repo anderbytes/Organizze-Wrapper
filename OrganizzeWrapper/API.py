@@ -1,6 +1,6 @@
 import requests
 from requests.auth import HTTPBasicAuth
-from _settings import ORGANIZZE_API_URL
+from settings import ORGANIZZE_API_URL
 
 
 class API:
