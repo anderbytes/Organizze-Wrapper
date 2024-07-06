@@ -1,5 +1,5 @@
-from API import API
-from auxiliar import validaData, rangesIntervalo
+from .API import API
+from .auxiliar import validaData, rangesIntervalo
 
 
 class Lancamento:

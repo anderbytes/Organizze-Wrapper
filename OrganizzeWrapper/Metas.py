@@ -1,6 +1,6 @@
 from datetime import datetime
-from API import API
-from auxiliar import validaAno
+from .API import API
+from .auxiliar import validaAno
 
 
 class Meta:
