@@ -21,6 +21,18 @@ class Conta:
         self.type = type,
         self.updated_at = updated_at
 
+    def __str__(self):
+        return (
+            f"Conta(id={self.id}, "
+            f"name='{self.name}', "
+            f"description='{self.description}', "
+            f"type='{self.type}', "
+            f"archived={self.archived}, "
+            f"default={self.default}, "
+            f"created_at='{self.created_at}', "
+            f"updated_at='{self.updated_at}')"
+        )
+
 
 def getContas(sessao: API) -> list[Conta]:
     results = []

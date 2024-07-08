@@ -31,7 +31,7 @@ class CartaoCredito:
 
     def __str__(self):
         return (
-            f"Cartao(id={self.id}, "
+            f"CartaoCredito(id={self.id}, "
             f"name='{self.name}', "
             f"description='{self.description}', "
             f"type='{self.type}', "

@@ -22,6 +22,18 @@ class Meta:
         self.predicted_total = predicted_total
         self.total = total
 
+    def __str__(self):
+        return (
+            f"Meta(id={self.id}, "
+            f"date='{self.date}', "
+            f"category_id='{self.category_id}', "
+            f"activity_type='{self.activity_type}', "
+            f"amount_in_cents='{self.amount_in_cents}', "
+            f"percentage='{self.percentage}', "
+            f"predicted_total='{self.predicted_total}', "
+            f"total='{self.total}', "
+        )
+
 
 def getMetas(sessao: API, ano: int = 0, mes: int = 0) -> list[Meta]:
     parametros = ""

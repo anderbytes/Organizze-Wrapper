@@ -12,6 +12,14 @@ class Usuario:
         self.name = name
         self.role = role
 
+    def __str__(self):
+        return (
+            f"Usuario(id={self.id}, "
+            f"name='{self.name}', "
+            f"email='{self.email}', "
+            f"role='{self.role}', "
+        )
+
 
 def getUsuarios(sessao: API) -> list[Usuario]:
     results = []

@@ -7,6 +7,13 @@ API_URL = "https://api.organizze.com.br/rest/v2"
 class API:
 
     def __init__(self, email: str, token: str, autor: str = "SemNome"):
+        """
+
+        Args:
+            email: Seu email da conta do Organizze, utilizado para gerar o user-agent e autenticação.
+            token: Seu token gerado em https://app.organizze.com.br/configuracoes/api-keys
+            autor: Seu primeiro nome, utilizado para gerar o user-agent da consulta
+        """
         self.email = email
         self.token = token
         self.autor = autor

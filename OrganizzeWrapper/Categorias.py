@@ -13,6 +13,14 @@ class Categoria:
         self.name = name
         self.parent_id = parent_id
 
+    def __str__(self):
+        return (
+            f"Categoria(id={self.id}, "
+            f"name='{self.name}', "
+            f"color='{self.color}', "
+            f"parent_id='{self.parent_id}', "
+        )
+
 
 def getCategorias(sessao: API) -> list[Categoria]:
     results = []

@@ -23,6 +23,19 @@ class FaturaCartao:
         self.previous_balance_cents = previous_balance_cents
         self.starting_date = starting_date
 
+    def __str__(self):
+        return (
+            f"FaturaCartao(id={self.id}, "
+            f"credit_card_id='{self.credit_card_id}', "
+            f"date='{self.date}', "
+            f"amount_cents='{self.amount_cents}', "
+            f"balance_cents='{self.balance_cents}', "
+            f"payment_amount_cents='{self.payment_amount_cents}', "
+            f"previous_balance_cents='{self.previous_balance_cents}', "
+            f"closing_date='{self.closing_date}', "
+            f"starting_date='{self.starting_date}', "
+        )
+
 
 def getFaturasCartao(sessao: API, idCartao: int) -> list[FaturaCartao]:
     #####
