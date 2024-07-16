@@ -1,4 +1,24 @@
 from datetime import datetime, timedelta
+import re
+
+
+def validaEmail(email: str):
+    """
+    Valida a sintaxe de um endereço de e-mail.
+
+    Args:
+        email (str): O endereço de e-mail a ser validado.
+
+    Raises:
+        TypeError: Se o argumento fornecido não for uma string.
+        ValueError: Se o argumento fornecido for uma string vazia.
+    """
+    if not isinstance(email, str):
+        raise TypeError("O argumento fornecido deve ser uma string.")
+    if not email:
+        raise ValueError("O argumento fornecido não pode ser uma string vazia.")
+    if not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
+        raise ValueError(f"O email digitado ({email}) está num formato indevido para emails.")
 
 
 def validaData(texto: str):
