@@ -44,7 +44,7 @@ def getMetas(sessao: API, ano: int = 0, mes: int = 0) -> list[Meta]:
             parametros = f'{parametros}/{mes}'
 
     results = []
-    response = sessao.get(f'/budgets/{parametros}')
+    response = sessao._get(f'/budgets/{parametros}')
     for i in response:
         results.append(Meta(activity_type=i['activity_type'],
                             amount_in_cents=i['amount_in_cents'],

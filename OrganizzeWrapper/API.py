@@ -42,19 +42,18 @@ class API:
         self.sessao.headers.update({'User-Agent': f'{self.autor} ({self.email})',
                                     'Content-Type': 'application/json; charset=utf-8'})
 
-    def get(self, comando: str, params: dict = None):
+    def _get(self, comando: str, params: dict = None):
         response = self.sessao.get(f'{API_URL}{comando}', params=params)
         if response.status_code == 401:
             raise HTTPError("Erro 401: Não autorizado. Verifique suas credenciais fornecidas do Organizze")
         else:
             return response.json()
 
-
-    def post(self, comando: str, params: dict = None):
+    def _post(self, comando: str, params: dict = None):
         self.sessao.post(f'{API_URL}{comando}', params=params)
 
-    def put(self, comando: str, params: dict = None):
+    def _put(self, comando: str, params: dict = None):
         self.sessao.put(f'{API_URL}{comando}', params=params)
 
-    def delete(self, comando: str, params: dict = None):
+    def _delete(self, comando: str, params: dict = None):
         self.sessao.delete(f'{API_URL}{comando}', params=params)

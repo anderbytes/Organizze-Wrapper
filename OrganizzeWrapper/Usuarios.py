@@ -23,7 +23,7 @@ class Usuario:
 
 def getUsuarios(sessao: API) -> list[Usuario]:
     results = []
-    response = sessao.get("/users")
+    response = sessao._get("/users")
     for i in response:
         results.append(Usuario(email=i['email'],
                                id=i['id'],
@@ -34,5 +34,5 @@ def getUsuarios(sessao: API) -> list[Usuario]:
 
 
 def getUsuario(sessao: API, idUsuario: int) -> Usuario:
-    response = sessao.get(f'/users/{idUsuario}')
+    response = sessao._get(f'/users/{idUsuario}')
     return Usuario(email=response['email'], id=response['id'], name=response['name'], role=response['role'])

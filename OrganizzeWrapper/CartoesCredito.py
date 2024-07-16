@@ -54,7 +54,7 @@ def addCartaoCredito(sessao: API, nome: str, bandeira: str, diaVencimento: int, 
         "closing_day": diaFechamento,
         "limit_cents": limite
     })
-    sessao.post("/credit_cards", params=JSON_Params)
+    sessao._post("/credit_cards", params=JSON_Params)
 
 
 def updCartaoCredito(sessao: API, idCartao: int, nome: str, diaVencimento: int, diaFechamento: int,
@@ -65,16 +65,16 @@ def updCartaoCredito(sessao: API, idCartao: int, nome: str, diaVencimento: int, 
         "closing_day": diaFechamento,
         "update_invoices_since": atualizarFaturasDesde  # DATE YYYY-MM-DD
     })
-    sessao.put(f'/credit_cards/{idCartao}', params=JSON_Params)
+    sessao._put(f'/credit_cards/{idCartao}', params=JSON_Params)
 
 
 def delCartaoCredito(sessao: API, idCartao: int):
-    sessao.delete(f'/credit_cards/{idCartao}')
+    sessao._delete(f'/credit_cards/{idCartao}')
 
 
 def getCartoesCredito(sessao: API) -> list[CartaoCredito]:
     results = []
-    response = sessao.get("/credit_cards")
+    response = sessao._get("/credit_cards")
     for i in response:
         results.append(CartaoCredito(archived=i['archived'],
                                      card_network=i['card_network'],
@@ -93,7 +93,7 @@ def getCartoesCredito(sessao: API) -> list[CartaoCredito]:
 
 
 def getCartaoCredito(sessao: API, idCartao: int) -> CartaoCredito:
-    response = sessao.get(f'/credit_cards/{idCartao}')
+    response = sessao._get(f'/credit_cards/{idCartao}')
     return CartaoCredito(archived=response['archived'],
                          card_network=response['card_network'],
                          closing_day=response['closing_day'],

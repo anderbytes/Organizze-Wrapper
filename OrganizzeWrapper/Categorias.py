@@ -24,7 +24,7 @@ class Categoria:
 
 def getCategorias(sessao: API) -> list[Categoria]:
     results = []
-    response = sessao.get("/categories")
+    response = sessao._get("/categories")
     for i in response:
         results.append(Categoria(color=i['color'],
                                  id=i['id'],
@@ -35,7 +35,7 @@ def getCategorias(sessao: API) -> list[Categoria]:
 
 
 def getCategoria(sessao: API, idCategoria: int) -> Categoria:
-    response = sessao.get(f'/categories/{idCategoria}')
+    response = sessao._get(f'/categories/{idCategoria}')
     return Categoria(color=response['color'],
                      id=response['id'],
                      name=response['name'],
@@ -46,18 +46,18 @@ def addCategoria(sessao: API, nome: str):
     JSON_Params = dict({
         "name": nome
     })
-    sessao.post("/categories", params=JSON_Params)
+    sessao._post("/categories", params=JSON_Params)
 
 
 def updCategoria(sessao: API, idCategoria: int, nome: str):
     JSON_Params = dict({
         "name": nome
     })
-    sessao.put(f'/categories/{idCategoria}', params=JSON_Params)
+    sessao._put(f'/categories/{idCategoria}', params=JSON_Params)
 
 
 def delCategoria(sessao: API, idCategoria: int, idNovaCategoria: int = None):
     if idNovaCategoria is not None:
-        sessao.delete(f'/categories/{idCategoria}', params={'replacement_id': idNovaCategoria})
+        sessao._delete(f'/categories/{idCategoria}', params={'replacement_id': idNovaCategoria})
     else:
-        sessao.delete(f'/categories/{idCategoria}')
+        sessao._delete(f'/categories/{idCategoria}')

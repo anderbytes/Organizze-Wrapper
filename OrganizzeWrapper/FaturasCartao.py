@@ -42,7 +42,7 @@ def getFaturasCartao(sessao: API, idCartao: int) -> list[FaturaCartao]:
     # TODO("Contém Bug grave não resolvido: Não traz corretamente as faturas de qualquer cartão")
     #####
     results = []
-    response = sessao.get(f'/credit_cards/{idCartao}/invoices')
+    response = sessao._get(f'/credit_cards/{idCartao}/invoices')
     for i in response:
         results.append(FaturaCartao(amount_cents=i['amount_cents'],
                                     balance_cents=i['balance_cents'],
@@ -61,7 +61,7 @@ def getFaturaCartao(sessao: API, idCartao: int, idFatura: int) -> FaturaCartao:
     #####
     # TODO("Contém Bug grave não resolvido: Não traz corretamente pagamentos de faturas")
     #####
-    response = sessao.get(f'/credit_cards/{idCartao}/invoices/{idFatura}')
+    response = sessao._get(f'/credit_cards/{idCartao}/invoices/{idFatura}')
     return FaturaCartao(amount_cents=response['amount_cents'],
                         balance_cents=response['balance_cents'],
                         closing_date=response['closing_date'],
@@ -74,4 +74,4 @@ def getFaturaCartao(sessao: API, idCartao: int, idFatura: int) -> FaturaCartao:
 
 
 def getPagamentosFatura(sessao: API, idCartao: int, idFatura: int):
-    return sessao.get(f'/credit_cards/{idCartao}/invoices/{idFatura}/payments')
+    return sessao._get(f'/credit_cards/{idCartao}/invoices/{idFatura}/payments')

@@ -83,7 +83,7 @@ def getLancamentos(sessao: API, dataInicio: str, dataFim: str) -> list[Lancament
         if dataFim is not None:
             parametros = f'{parametros}end_date={fim}'
 
-        response = sessao.get(comando=f'/transactions{parametros}')
+        response = sessao._get(comando=f'/transactions{parametros}')
 
         for i in response:
             results.append(Lancamento(amount_cents=i['amount_cents'],
@@ -110,7 +110,7 @@ def getLancamentos(sessao: API, dataInicio: str, dataFim: str) -> list[Lancament
 
 
 def getLancamento(sessao: API, idLancamento: int) -> Lancamento:
-    response = sessao.get(f'/transactions/{idLancamento}')
+    response = sessao._get(f'/transactions/{idLancamento}')
     return Lancamento(amount_cents=response['amount_cents'],
                       attachments_count=response['attachments_count'],
                       category_id=response['category_id'],
@@ -134,7 +134,7 @@ def getLancamento(sessao: API, idLancamento: int) -> Lancamento:
 
 
 def addLancamento(sessao: API, JSON_params: dict):
-    sessao.post("/transactions", params=JSON_params)
+    sessao._post("/transactions", params=JSON_params)
 
 
 def addLancamentoFixo(sessao: API, JSON_params: dict, periodicidade: str):
@@ -144,7 +144,7 @@ def addLancamentoFixo(sessao: API, JSON_params: dict, periodicidade: str):
                 'bimestral': 'bimonthly', 'trimestral': 'trimonthly', 'semestral': 'semesterly', 'anual': 'yearly'}
 
     JSON_params.update({"recurrence_attributes": {"periodicity": periodos[periodicidade]}})
-    sessao.post("/transactions", params=JSON_params)
+    sessao._post("/transactions", params=JSON_params)
 
 
 def addLancamentoRecorrente(sessao: API, JSON_params: dict, periodicidade: str, parcelas: int):
@@ -157,7 +157,7 @@ def addLancamentoRecorrente(sessao: API, JSON_params: dict, periodicidade: str, 
     if not (2 <= parcelas <= 480):
         raise ValueError("O número de parcelas é inválido (utilize um Nº entre 2 a 480)")
     JSON_params.update({"installments_attributes": {"periodicity": periodicidade, "total": parcelas}})
-    sessao.post("/transactions", params=JSON_params)
+    sessao._post("/transactions", params=JSON_params)
 
 
 def updLancamento(sessao: API, idLancamento: int, JSON_params: dict, atualizaFuturos: bool = False, atualizaTodos: bool = False):
@@ -165,7 +165,7 @@ def updLancamento(sessao: API, idLancamento: int, JSON_params: dict, atualizaFut
         JSON_params.update({"update_future": True})
     elif atualizaTodos is True:
         JSON_params.update({"update_all": True})
-    sessao.put(f'/transactions/{idLancamento}', params=JSON_params)
+    sessao._put(f'/transactions/{idLancamento}', params=JSON_params)
 
 
 def delLancamento(sessao: API, idLancamento: int, apagaFuturos: bool = False, apagaTodos: bool = False):
@@ -174,4 +174,4 @@ def delLancamento(sessao: API, idLancamento: int, apagaFuturos: bool = False, ap
         parametros = {"update_future": True}
     elif apagaTodos is True:
         parametros = {"update_all": True}
-    sessao.delete(f'/transactions/{idLancamento}', params=parametros)
+    sessao._delete(f'/transactions/{idLancamento}', params=parametros)

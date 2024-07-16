@@ -36,7 +36,7 @@ class Conta:
 
 def getContas(sessao: API) -> list[Conta]:
     results = []
-    response = sessao.get("/accounts")
+    response = sessao._get("/accounts")
     for i in response:
         results.append(Conta(archived=i['archived'],
                              created_at=i['created_at'],
@@ -57,22 +57,22 @@ def addConta(sessao: API, nome: str, descricao: str, default: bool, tipo: str = 
         "description": descricao,
         "default": default
     })
-    sessao.post("/accounts", params=JSON_Params)
+    sessao._post("/accounts", params=JSON_Params)
 
 
 def updConta(sessao: API, idConta: int, nome: str):
     JSON_Params = dict({
         "name": nome
     })
-    sessao.put(f'/accounts/{idConta}', params=JSON_Params)
+    sessao._put(f'/accounts/{idConta}', params=JSON_Params)
 
 
 def delConta(sessao: API, idConta: int):
-    sessao.delete(f'/accounts/{idConta}')
+    sessao._delete(f'/accounts/{idConta}')
 
 
 def getConta(sessao: API, idConta: int) -> Conta:
-    response = sessao.get(f'/accounts/{idConta}')
+    response = sessao._get(f'/accounts/{idConta}')
     return Conta(archived=response['archived'],
                  created_at=response['created_at'],
                  default=response['default'],
