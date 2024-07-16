@@ -1,5 +1,5 @@
 import requests
-from requests import Session, HTTPError
+from requests import HTTPError
 from requests.auth import HTTPBasicAuth
 
 from OrganizzeWrapper.auxiliar import validaEmail
@@ -43,17 +43,60 @@ class API:
                                     'Content-Type': 'application/json; charset=utf-8'})
 
     def _get(self, comando: str, params: dict = None):
-        response = self.sessao.get(f'{API_URL}{comando}', params=params)
-        if response.status_code == 401:
-            raise HTTPError("Erro 401: Não autorizado. Verifique suas credenciais fornecidas do Organizze")
-        else:
+        try:
+            response = self.sessao.get(f'{API_URL}{comando}', params=params)
+            response.raise_for_status()
             return response.json()
 
+        except requests.exceptions.HTTPError as erroHTTP:
+            if response.status_code == 401:
+                raise HTTPError("Erro HTTP 401: Não autorizado. Verifique as credenciais fornecidas do Organizze")
+            else:
+                raise HTTPError(f"Erro HTTP: {erroHTTP}")
+
+        except requests.exceptions.RequestException as requestERROR:
+            raise HTTPError(f"Ocorreu um erro durante a requisição: {requestERROR}")
+
     def _post(self, comando: str, params: dict = None):
-        self.sessao.post(f'{API_URL}{comando}', params=params)
+        try:
+            response = self.sessao.post(f'{API_URL}{comando}', params=params)
+            response.raise_for_status()
+
+        except requests.exceptions.HTTPError as erroHTTP:
+            if response.status_code == 401:
+                raise HTTPError("Erro HTTP 401: Não autorizado. Verifique as credenciais fornecidas do Organizze")
+            else:
+                raise HTTPError(f"Erro HTTP: {erroHTTP}")
+
+        except requests.exceptions.RequestException as requestERROR:
+            raise HTTPError(f"Ocorreu um erro durante a requisição: {requestERROR}")
+
 
     def _put(self, comando: str, params: dict = None):
-        self.sessao.put(f'{API_URL}{comando}', params=params)
+        try:
+            response = self.sessao.put(f'{API_URL}{comando}', params=params)
+            response.raise_for_status()
+
+        except requests.exceptions.HTTPError as erroHTTP:
+            if response.status_code == 401:
+                raise HTTPError("Erro HTTP 401: Não autorizado. Verifique as credenciais fornecidas do Organizze")
+            else:
+                raise HTTPError(f"Erro HTTP: {erroHTTP}")
+
+        except requests.exceptions.RequestException as requestERROR:
+            raise HTTPError(f"Ocorreu um erro durante a requisição: {requestERROR}")
+
 
     def _delete(self, comando: str, params: dict = None):
-        self.sessao.delete(f'{API_URL}{comando}', params=params)
+        try:
+            response = self.sessao.delete(f'{API_URL}{comando}', params=params)
+            response.raise_for_status()
+
+        except requests.exceptions.HTTPError as erroHTTP:
+            if response.status_code == 401:
+                raise HTTPError("Erro HTTP 401: Não autorizado. Verifique as credenciais fornecidas do Organizze")
+            else:
+                raise HTTPError(f"Erro HTTP: {erroHTTP}")
+
+        except requests.exceptions.RequestException as requestERROR:
+            raise HTTPError(f"Ocorreu um erro durante a requisição: {requestERROR}")
