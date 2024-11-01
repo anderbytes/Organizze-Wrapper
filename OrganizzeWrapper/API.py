@@ -1,8 +1,7 @@
 import requests
 from requests import HTTPError
 from requests.auth import HTTPBasicAuth
-
-from PyMultiHelper.Validation import validateEmail
+from PyMultiHelper.Validation import isValidEmail
 
 API_URL = "https://api.organizze.com.br/rest/v2"
 
@@ -28,7 +27,8 @@ class API:
         """
         Validações
         """
-        validateEmail(email)
+        if not isValidEmail(email):
+            raise SyntaxError(f"'{email}' is not a valid email format.")
 
         """
         Execução
