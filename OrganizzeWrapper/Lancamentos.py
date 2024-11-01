@@ -1,5 +1,6 @@
+from PyMultiHelper.Validation import validateDateFormat, matchesRegex
+from PyMultiHelper.Dates import dateRanges
 from .API import API
-from .auxiliar import validaData, rangesIntervalo
 
 
 class Lancamento:
@@ -71,11 +72,11 @@ class Lancamento:
 
 
 def getLancamentos(sessao: API, dataInicio: str, dataFim: str) -> list[Lancamento]:
-    validaData(dataInicio)
-    validaData(dataFim)
+    validateDateFormat(dataInicio, "%Y-%m-%d")
+    validateDateFormat(dataFim, "%Y-%m-%d")
     results: list[Lancamento] = []
 
-    for inicio, fim in rangesIntervalo(dataInicio, dataFim):
+    for inicio, fim in dateRanges(startDate=dataInicio, endDate=dataFim):
 
         parametros = "?"
         if dataInicio is not None:
@@ -106,6 +107,24 @@ def getLancamentos(sessao: API, dataInicio: str, dataFim: str) -> list[Lancament
                                       tags=i['tags'],
                                       total_installments=i['total_installments'],
                                       updated_at=i['updated_at']))
+    return results
+
+
+def filtraLancamentos(lancamentos: list[Lancamento], tituloBuscado: str, usaRegex: bool = False):
+    results: list[Lancamento] = []
+
+    for l in lancamentos:
+        considera = False
+        if usaRegex:
+            if matchesRegex(l.description, tituloBuscado):
+                considera = True
+        else:
+            if tituloBuscado.upper() in l.description.upper():
+                considera = True
+
+        if considera:
+            results.append(l)
+
     return results
 
 

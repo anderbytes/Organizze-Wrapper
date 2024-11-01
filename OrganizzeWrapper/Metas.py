@@ -1,6 +1,7 @@
 from datetime import datetime
+
+from PyMultiHelper.Validation import validateYear
 from .API import API
-from .auxiliar import validaAno
 
 
 class Meta:
@@ -38,7 +39,7 @@ class Meta:
 def getMetas(sessao: API, ano: int = 0, mes: int = 0) -> list[Meta]:
     parametros = ""
     if ano > 0:
-        validaAno(ano, minimo=1900, maximo=datetime.today().year)
+        validateYear(ano, minYear=1900, maxYear=datetime.today().year)
         parametros = f'{ano}'
         if 1 <= mes <= 12:
             parametros = f'{parametros}/{mes}'

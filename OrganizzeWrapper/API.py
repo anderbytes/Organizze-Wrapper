@@ -2,7 +2,7 @@ import requests
 from requests import HTTPError
 from requests.auth import HTTPBasicAuth
 
-from OrganizzeWrapper.auxiliar import validaEmail
+from PyMultiHelper.Validation import validateEmail
 
 API_URL = "https://api.organizze.com.br/rest/v2"
 
@@ -28,7 +28,7 @@ class API:
         """
         Validações
         """
-        validaEmail(email)
+        validateEmail(email)
 
         """
         Execução

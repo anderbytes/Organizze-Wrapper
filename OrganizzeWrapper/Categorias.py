@@ -1,5 +1,5 @@
 from .API import API
-
+from PyMultiHelper.Validation import matchesRegex
 
 class Categoria:
     """
@@ -56,6 +56,25 @@ def getCategorias(sessao: API) -> list[Categoria]:
                                  name=i['name'],
                                  parent_id=i['parent_id']
                                  ))
+    return results
+
+
+def filtraCategorias(categorias: list[Categoria], nomeBuscado: str, usaRegex: bool = False) -> list[Categoria]:
+
+    results: list[Categoria] = []
+
+    for c in categorias:
+        considera = False
+        if usaRegex:
+            if matchesRegex(c.name, nomeBuscado):
+                considera = True
+        else:
+            if nomeBuscado.upper() in c.name.upper():
+                considera = True
+
+        if considera:
+            results.append(c)
+
     return results
 
 

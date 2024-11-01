@@ -2,9 +2,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='Organizze Wrapper',
-    version='1.0.8',
+    version='1.1.0',
     packages=find_packages(),
-    install_requires=[],
+    install_requires=[
+        "requests>=2.32.3"
+    ],
     description='Biblioteca Python de Wrapper para a API do Organizze.com.br',
     author='Anderson',
     author_email='anderbytes@gmail.com',
