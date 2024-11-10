@@ -7,35 +7,35 @@ Esta biblioteca servirá de apoio para utilização da API do Organizze (www.org
 Use o gerenciador 'pip' para instalação do pacote.
 
 ```bash
-pip install organizze-wrapper
+pip install organizzewrapper
 ```
 
 ## Uso
 
 Para utilização da API, primeiramente você deve gerar uma chave de API em sua conta no Organizze, neste [link](https://app.organizze.com.br/configuracoes/api-keys).
 
-Para seu código, seguem alguns exemplos de comandos: 
+Para seu código, seguem alguns exemplos de comandos:
 
 ```python
-from OrganizzeWrapper.API import API
+from API import API
 
 # Inicializar a sessão
 conn = API(email="seu_email_do_Organizze", token="token gerado no Organizze", autor="Seu_primeiro_nome")
 
 # Listar as categorias existentes
-from OrganizzeWrapper.Categorias import getCategorias
+from Categorias import getCategorias
 
 for cat in getCategorias(conn):
     print(cat)
-    
+
 # Listar os lançamentos de Junho de 2024
-from OrganizzeWrapper.Lancamentos import getLancamentos
+from Lancamentos import getLancamentos
 
 for lanc in getLancamentos(conn, dataInicio="2024-06-01", dataFim="2024-06-30"):
     print(lanc)
 
 # Atualizar o lançamento de 'id' 7353025510 para o valor de R$ 445,99 (como despesa)
-from OrganizzeWrapper.Lancamentos import updLancamento
+from Lancamentos import updLancamento
 
 updLancamento(conn, idLancamento=7353025510, JSON_params={'amount_cents': -44599})
 
@@ -60,8 +60,8 @@ Sou um desenvolvedor 'solo' nas horas vagas, então sejam pacientes 😉
 ## Publicação
 
 Este projeto está publicado em:
-- GitHub: https://github.com/anderbytes/Organizze-Wrapper
-- PyPi: https://pypi.org/project/Organizze-Wrapper/
+- GitHub: https://github.com/anderbytes/OrganizzeWrapper
+- PyPi: https://pypi.org/project/OrganizzeWrapper/
 
 ## Licença
 
