@@ -7,7 +7,7 @@ Esta biblioteca servirá de apoio para utilização da API do Organizze (www.org
 Use o gerenciador 'pip' para instalação do pacote.
 
 ```bash
-pip install organizzewrapper
+pip install organizze-wrapper
 ```
 
 ## Uso
@@ -17,25 +17,25 @@ Para utilização da API, primeiramente você deve gerar uma chave de API em sua
 Para seu código, seguem alguns exemplos de comandos:
 
 ```python
-from API import API
+from Organizze_Wrapper.API import API
 
 # Inicializar a sessão
 conn = API(email="seu_email_do_Organizze", token="token gerado no Organizze", autor="Seu_primeiro_nome")
 
 # Listar as categorias existentes
-from Categorias import getCategorias
+from Organizze_Wrapper.Categorias import getCategorias
 
 for cat in getCategorias(conn):
     print(cat)
 
 # Listar os lançamentos de Junho de 2024
-from Lancamentos import getLancamentos
+from Organizze_Wrapper.Lancamentos import getLancamentos
 
 for lanc in getLancamentos(conn, dataInicio="2024-06-01", dataFim="2024-06-30"):
     print(lanc)
 
 # Atualizar o lançamento de 'id' 7353025510 para o valor de R$ 445,99 (como despesa)
-from Lancamentos import updLancamento
+from Organizze_Wrapper.Lancamentos import updLancamento
 
 updLancamento(conn, idLancamento=7353025510, JSON_params={'amount_cents': -44599})
 
