@@ -33,7 +33,7 @@ class Conta:
         return {"id": self.id,
                 "name": self.name,
                 "description": self.description,
-                "type": self.type.value,
+                "type": self.type,
                 "default": self.default,
                 "archived": self.archived,
                 "created_at": self.created_at,
